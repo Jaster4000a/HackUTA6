@@ -1,6 +1,7 @@
 import requests
+import configparser
 
-API_KEY = '68ebf7825f5306b7f69d0466c259ca4e'
+API_KEY = ["WEATHER_API"]
 
 
 # get weather data for specific coordinates
