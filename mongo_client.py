@@ -43,5 +43,5 @@ if __name__ == "__main__":
     client=Mongo()
     current_time=time.time()
     print(client.get_latest_value())
-    client.insert({"Time":current_time,"DateTime":time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(current_time))})
+    #client.insert({"Time":current_time,"DateTime":time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(current_time)),"GreenPercent": })
     

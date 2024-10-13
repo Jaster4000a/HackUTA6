@@ -4,6 +4,7 @@ import time
 import keyboard
 from PIL import Image
 import os
+from mongo_client import Mongo
 
 def percent_green(img_file):
     img = Image.open(img_file)
@@ -24,13 +25,15 @@ cv2.namedWindow("Intel RealSense webcam screenshot")
 img_counter = 0
 saved_images = []  # List to store the filenames of the last 5 images
 
+client = Mongo() #just a class in mongo_client
+
 while True:
     ret, fram = cam.read()
     if not ret:
         print("Failed to grab frame")
         break
 
-    cv2.imshow("Intel RealSense webcam screenshot", fram)  # Show the camera feed
+    #cv2.imshow("Intel RealSense webcam screenshot", fram)  # Show the camera feed
 
     # Save the screenshot
     img_name = f"opencv_frame_{img_counter}.png"
@@ -52,6 +55,21 @@ while True:
     green_percentage = percent_green(img_name)
     print(f"Percentage of green pixels: {green_percentage:.2f}%")
 
+    current_time = time.time()
+   
+    DataFromCamera = {
+        "Time":current_time,
+        "DateTime":time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(current_time)),
+        "IotDatat": {
+            "Name":"camera1",
+            "lat":32.727339,
+            "lon":-97.111409,
+            "GreenPercent":green_percentage
+        }
+    }
+
+    client.insert(DataFromCamera)
+
     img_counter += 1
     time.sleep(5)  # Wait for 20 seconds before taking another picture
 
@@ -62,5 +80,5 @@ while True:
 
 # Release the camera and destroy all OpenCV windows
 cam.release()
-cv2.destroyAllWindows()
+#cv2.destroyAllWindows()
 
