@@ -34,7 +34,11 @@ class Mongo:
             self.client.close()
 
         def get_latest_value(self):
-             return self.collection.find().sort('_id',-1).limit(1)[0]
+            return self.collection.find().sort('_id',-1).limit(1)[0]
+
+        def get_latest_station_data(self):
+            return self.collection.find({"StationData": {"$exists": True}}).sort('_id', -1).limit(1)[0]
+
         
         def clear_all(self):
              self.collection.delete_many({})
@@ -42,6 +46,6 @@ class Mongo:
 if __name__ == "__main__":
     client=Mongo()
     current_time=time.time()
-    print(client.get_latest_value())
-    #client.insert({"Time":current_time,"DateTime":time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(current_time)),"GreenPercent": })
+    print(client.get_latest_station_value())
+    #client.insert({"Time":current_time,"DateTime":time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(current_time))})
     
