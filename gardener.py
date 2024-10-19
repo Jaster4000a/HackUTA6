@@ -1,8 +1,14 @@
 import json
 from azure.servicebus import ServiceBusClient
 from relayControl import relayController
+import configparser
+import os
+from pathlib import Path
+config=configparser.ConfigParser()
+config_path=os.path.join(Path.home(),'config.ini')
+config.read(config_path)
 
-connection_str = [AZURE-BUS-KEY]
+connection_str = config['AZURE']['AZURE-BUS-KEY']
 topic_name = "device-messages"
 subscription_name = "device1-subscription"
 

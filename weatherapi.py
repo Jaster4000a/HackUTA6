@@ -1,7 +1,13 @@
 import requests
 import configparser
+from pathlib import Path
+import os
 
-API_KEY = config["WEATHER_API"]
+config=configparser.ConfigParser()
+config_path=os.path.join(Path.home(),'config.ini')
+config.read(config_path)
+
+API_KEY = config['OPEN_WEATHER']["WEATHER_API"]
 
 
 # get weather data for specific coordinates

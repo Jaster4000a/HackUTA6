@@ -1,7 +1,13 @@
 from azure.servicebus.management import ServiceBusAdministrationClient
+import configparser
+import os
+from pathlib import Path
+config=configparser.ConfigParser()
+config_path=os.path.join(Path.home(),'config.ini')
+config.read(config_path)
 
 # Connection string from your Service Bus namespace
-connection_str = [AZURE-BUS-KEY]
+connection_str = config['AZURE']['AZURE-BUS-KEY']
 
 # The name of the topic and subscription
 topic_name = "device-messages"

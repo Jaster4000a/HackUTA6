@@ -1,6 +1,6 @@
 import cv2
 import time
-from produceDetection import detect_objects
+from produceDetection import roboflow
 import base64
 from mongo_client import Mongo
 
@@ -39,7 +39,7 @@ while True:
         image_data = image_file.read()
         base64_image = base64.b64encode(image_data).decode("utf-8")
 
-    response=detect_objects(base64_image)
+    response=roboflow(base64_image)
     predictions=response["predictions"]
     bounded_image=[]
     if len(predictions) > 0:

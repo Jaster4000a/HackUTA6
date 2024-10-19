@@ -1,8 +1,15 @@
 import os
 from azure.servicebus import ServiceBusClient, ServiceBusMessage
+import configparser
+import os
+from pathlib import Path
+
+config=configparser.ConfigParser()
+config_path=os.path.join(Path.home(),'config.ini')
+config.read(config_path)
 
 # Get the connection string from environment variable or hardcode (not recommended)
-connection_str = [AZURE-BUS-KEY]
+connection_str = config['AZURE']['AZURE-BUS-KEY']
 topic_name = "device-messages"
 json_file_path = "/home/jason_cabrejos/action.json"
 
